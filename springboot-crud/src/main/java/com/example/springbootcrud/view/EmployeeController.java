@@ -3,6 +3,7 @@ package com.example.springbootcrud.view;
 import com.example.springbootcrud.modul.Employee;
 import com.example.springbootcrud.repository.EmployeeRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -37,16 +38,16 @@ public class EmployeeController {
     }
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
-        Optional<Employee> employee = employeeRepository.findById(id);
-        if (employee.isPresent()){
-            model.addAttribute("employee", employee.get());
-            return "edit";
-        }else{
-            return "redirect:/";
-        }
+        Employee employee = findEmployeeById(id);
+        model.addAttribute("employee", employee);
+        return "edit";
     }
     @PostMapping("/update")
-    public String update(@Valid @ModelAttribute("employee") Employee employee){
+    public String update(@Valid @ModelAttribute("employee") Employee employee,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "edit";
+        }
         employeeRepository.save(employee);
         return "redirect:/";
     }
@@ -54,5 +55,9 @@ public class EmployeeController {
     public String delete(@PathVariable Long id){
         employeeRepository.deleteById(id);
         return "redirect:/";
+    }
+    private Employee findEmployeeById(Long id){
+        return employeeRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("Invalid employee ID: "+ id));
     }
 }
