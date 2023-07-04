@@ -19,6 +19,11 @@
                 <input type="text" class="from-control" id="email" th:field = "*{email}" placeholder="Email" />
                 <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
+            <div class="mb-3">
+                <label for="salary" class="form-label">Salary:</label>
+                <input type="text" class="from-control" id="salary" th:field = "*{salary}" placeholder="Salary" />
+                <div class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
+            </div>
             <button type="submit">Save</button>
         </form>
     </div>

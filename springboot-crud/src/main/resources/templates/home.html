@@ -19,6 +19,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Salary</th>
                     <th>Actions</th>
                     <th>Actions</th>
                 </tr>
@@ -28,6 +29,7 @@
                     <td th:text = "${employee.id}"></td>
                     <td th:text = "${employee.name}"></td>
                     <td th:text = "${employee.email}"></td>
+                    <td th:text = "${employee.salary}"></td>
                     <td><a class="btn btn-primary btn-sm" th:href="@{/edit/{id}(id=${employee.id})}">Edit</a></td>
                     <td><a class="btn btn-danger btn-sm" th:href="@{/delete/{id}(id=${employee.id})}">Delete</a></td>
                 </tr>
